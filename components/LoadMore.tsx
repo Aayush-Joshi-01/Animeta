@@ -9,15 +9,14 @@ let page = 2;
 function LoadMore() {
   const { ref, inView } = useInView();
   const [data, setData] = useState<AnimeProp[]>([]);
-  const [page, setPage] = useState(1);
   useEffect(() => {
     if (inView) {
       fetchAnime(page).then((res) => {
-        setData((prevData) => [...prevData, ...res]);
-        setPage((prevPage) => prevPage + 1);
+        setData([...data, ...res]);
       });
+      page++;
     }
-  }, [inView, page]);
+  }, [inView, data]);
   return (
     <>
       <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
